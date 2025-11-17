@@ -31,11 +31,11 @@
     <?php if($data['user'] === 'Pembimbing'){ ?>
 
         <!-- Heading -->
-        <div class="sidebar-heading">Addons</div>
+        <div class="sidebar-heading">Dokumen</div>
 
         <li class="nav-item <?= strpos($current_page, '/Dokumen') !== false ? 'active' : '' ?>">
             <a class="nav-link" href="<?= BASE_URL ?>/Dokumen/">
-                <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-fw fa-folder"></i>
                 <span>Dokumen Mahasiswa</span>
             </a>
         </li>

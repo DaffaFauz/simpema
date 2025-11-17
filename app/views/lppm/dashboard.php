@@ -132,7 +132,7 @@
                                                         <td><?= htmlspecialchars($l['mahasiswa_nama']);?></td>
                                                         <td><?= htmlspecialchars($l['judul_penelitian']);?></td>
                                                         <td><?= htmlspecialchars($l['dosen_nama']);?></td>
-                                                        <td><?= htmlspecialchars($l['status_publish']);?></td>
+                                                        <td><span class="badge badge-secondary"><?= htmlspecialchars($l['status_publish']);?></span></td>
                                                         <td> <div class="dropdown">
                                                         <button class="btn " type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fas fa-ellipsis-v"></i>
