@@ -213,8 +213,8 @@
                             // Untuk fakultas 1 atau 4, tambahkan dua dosen tetap di awal daftar
                             if(id_fakultas == 4){
                                 var fixed = [
-                                    { nidn: 1, nama: 'Ida Rapida' },
-                                    { nidn: 416118503, nama: 'Ryzki Wiryawan' }
+                                    { nidn: 428016502, nama: 'Ida Rapida, M.M' },
+                                    { nidn: 416118503, nama: 'M Ryzki Wiryawan, S.IP., M.T' }
                                 ];
                                 data = fixed.concat(data || []);
                             }

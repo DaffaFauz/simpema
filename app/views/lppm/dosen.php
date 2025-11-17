@@ -37,10 +37,10 @@
                                         foreach($data['dosen'] as $dokumen): ?>
                                         <tr>
                                             <td><?= htmlspecialchars((string)$no++) ?></td>
-                                            <td><?= htmlspecialchars($dokumen['nidn'] ?? '-') ?></td>
-                                            <td><?= htmlspecialchars($dokumen['nama'] ?? '-') ?></td>
-                                            <td><?= htmlspecialchars($dokumen['email'] ?? '-') ?></td>
-                                            <td><?= htmlspecialchars($dokumen['nama_prodi'] ?? '-') ?></td>
+                                            <td><?= htmlspecialchars(trim($dokumen['nidn'] ?? '-')) ?></td>
+                                            <td><?= htmlspecialchars(trim($dokumen['nama'] ?? '-')) ?></td>
+                                            <td><?= htmlspecialchars(trim($dokumen['email'] ?? '-')) ?></td>
+                                            <td><?= htmlspecialchars(trim($dokumen['nama_prodi'] ?? '-')) ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEditDosen<?= htmlspecialchars($dokumen['nidn'])?>"><i class="fas fa-edit fa-sm"></i> Ubah</button>
                                                 <form action="<?=BASE_URL?>/Dosen/hapus" method="POST" class="d-inline">

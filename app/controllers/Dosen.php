@@ -22,19 +22,34 @@ class Dosen extends Controller{
             // Prepare dosen data and include id_user
             $dosenData = $_POST;
             $dosenData['id_user'] = $userId;
+            // die(var_dump($dosenData));
             if ($this->model('DosenModel')->tambah($dosenData) > 0) {
                 redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen berhasil disimpan!', 'success');
                 return;
+            }else{
+                // If we reach here something failed
+                redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen gagal disimpan!', 'danger');
             }
-        }
+        }else{
         // If we reach here something failed
         redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen gagal disimpan!', 'danger');
+        }
     }
 
     public function ubah(){
-        if($this->model('DosenModel')->edit($_POST) > 0){
-            redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen berhasil diubah!', 'success');
+
+        // $userId = $this->model('UserModel')->edit($_POST);
+        if($this->model('UserModel')->edit($_POST) > 0){
+            // Prepare dosen data and include id_user
+            if ($this->model('DosenModel')->Edit($_POST) > 0) {
+                redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen berhasil diubah!', 'success');
+                return;
+            }else{
+                // If we reach here something failed
+                redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen gagal diubah!', 'danger');
+            }
         }else{
+            // If we reach here something failed
             redirectWithMsg(BASE_URL.'/Dosen', 'Data Dosen gagal diubah!', 'danger');
         }
     }

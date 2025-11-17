@@ -10,9 +10,10 @@ class UserModel {
 
     public function login($data) {
         try {
-            $query = "SELECT user.*, user_jabatan.id_jabatan, jabatan.nama_jabatan FROM {$this->table} INNER JOIN user_jabatan ON user.id_user = user_jabatan.id_user INNER JOIN jabatan ON user_jabatan.id_jabatan = jabatan.id_jabatan WHERE user.username = :username LIMIT 1";
+            
+            $query = "SELECT `user`.*, user_jabatan.id_jabatan, jabatan.nama_jabatan FROM `{$this->table}` LEFT JOIN user_jabatan ON `user`.id_user = user_jabatan.id_user LEFT JOIN jabatan ON user_jabatan.id_jabatan = jabatan.id_jabatan WHERE `user`.username = :email LIMIT 1";
             $this->pdo->query($query);
-            $this->pdo->bind('username', $data['email']);
+            $this->pdo->bind(':email', $data['email']);
             $user = $this->pdo->single();
 
             // Cek validasi username dan password
@@ -32,7 +33,7 @@ class UserModel {
                 // Mendapatkan data user dari database
                 $query = "SELECT nama, id_prodi, nidn FROM dosen WHERE id_user = :id_user";
                 $this->pdo->query($query);
-                $this->pdo->bind('id_user', $user['id_user']);
+                $this->pdo->bind(':id_user', $user['id_user']);
                 $dosen = $this->pdo->single();
                 if($dosen) {
                     $_SESSION['id_prodi'] = $dosen['id_prodi'];
@@ -44,13 +45,14 @@ class UserModel {
             return false;
         } catch (Exception $e) {
             echo"Error login:". $e;
-            die();
+            return false;
         }
 
         
     }
 
     public function tambah($data){
+
         $password = password_hash($data['nidn'], PASSWORD_DEFAULT);
         $this->pdo->query("INSERT INTO {$this->table} (name, username, password) VALUES (:name, :username, :password)");
         $this->pdo->bind(':name', $data['nama']);
@@ -62,6 +64,17 @@ class UserModel {
             return $this->pdo->lastInsertId();
         }
         return 0;
+    }
+
+    public function edit($data){
+        $password = password_hash($data['nidn'], PASSWORD_DEFAULT);
+        $this->pdo->query("UPDATE {$this->table} SET name = :name, username = :username, password = :password WHERE id_user = :id_user");
+        $this->pdo->bind(':name', trim($data['nama']));
+        $this->pdo->bind('username', trim($data['email']));
+        $this->pdo->bind('password', $password);
+        $this->pdo->bind('id_user', $data['id_user']);
+        $this->pdo->execute();
+        return $this->pdo->rowCount();
     }
 
     public function hapus($id){

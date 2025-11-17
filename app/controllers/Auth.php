@@ -43,7 +43,6 @@ class Auth extends Controller {
     }
 
     public function logout() {
-        session_start();
         session_unset();
         session_destroy();
         redirectWithMsg(BASE_URL . "/Home/login", "Anda telah logout.", "success");
