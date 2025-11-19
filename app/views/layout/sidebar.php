@@ -121,8 +121,8 @@
         </li>
 
         <!-- Nav Item - Dokumen Pengajuan -->
-        <li class="nav-item <?= strpos($current_page, '/Dokumen/pengajuan') !== false ? 'active' : '' ?>">
-            <a class="nav-link" href="<?= BASE_URL ?>/Dokumen/pengajuan">
+        <li class="nav-item <?= strpos($current_page, '/Pengajuan') !== false ? 'active' : '' ?>">
+            <a class="nav-link" href="<?= BASE_URL ?>/Pengajuan/">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Dokumen Pengajuan</span>
             </a>

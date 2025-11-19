@@ -6,8 +6,8 @@
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <h6 class="m-0 font-weight-bold text-primary">Data Dokumen Mahasiswa</h6>
                             <div class="d-flex gap-2">
-                                <button id="btnDownload" class="btn btn-info btn-sm mr-2"><i class="fas fa-download"></i> Download</button>
-                                <button id="btnPrint" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Print</button>
+                                <button id="btnDownload1" class="btn btn-info btn-sm mr-2"><i class="fas fa-download"></i> Download</button>
+                                <button id="btnPrint1" class="btn btn-success btn-sm"><i class="fas fa-print"></i> Print</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -48,7 +48,7 @@
                     </div>
 
 <script>
-document.getElementById('btnPrint').addEventListener('click', function() {
+document.getElementById('btnPrint1').addEventListener('click', function() {
     // Ambil tabel sumber
     var table = document.getElementById('dataTable');
     var rows = table.querySelectorAll('tbody tr');
@@ -66,6 +66,8 @@ document.getElementById('btnPrint').addEventListener('click', function() {
         '<th style="border:1px solid #ddd;padding:8px;text-align:center;">No</th>' +
         '<th style="border:1px solid #ddd;padding:8px;text-align:center;">Nama Mahasiswa</th>' +
         '<th style="border:1px solid #ddd;padding:8px;text-align:center;">Judul Penelitian</th>' +
+        '<th style="border:1px solid #ddd;padding:8px;text-align:center;">Pembimbing</th>' +
+        '<th style="border:1px solid #ddd;padding:8px;text-align:center;">Status Publikasi</th>' +
         '</tr>' +
         '</thead><tbody>';
 
@@ -166,7 +168,7 @@ document.getElementById('btnPrint').addEventListener('click', function() {
     printWindow.document.close();
 });
 
-document.getElementById('btnDownload').addEventListener('click', function() {
+document.getElementById('btnDownload1').addEventListener('click', function() {
     // Ambil data dari tabel
     var table = document.getElementById('dataTable');
     var rows = table.querySelectorAll('tbody tr');

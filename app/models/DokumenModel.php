@@ -163,40 +163,7 @@ class DokumenModel {
      * Get filtered dokumen that are pengajuan (Requested/Accepted/Rejected)
      * Filters by fakultas and prodi and only periode aktif.
      */
-    public function getFilteredRequests($fakultas, $prodi){
-        $query = "SELECT 
-            {$this->table}.id_dokumen, 
-            {$this->table}.judul_penelitian, 
-            {$this->table}.status_publish, 
-            {$this->table}.file_dokumen, 
-            {$this->table}.status,
-            mahasiswa.nama as mahasiswa_nama, 
-            dosen.nama as dosen_nama
-            FROM {$this->table}
-            INNER JOIN mahasiswa ON {$this->table}.id_mahasiswa = mahasiswa.nim
-            INNER JOIN periode ON mahasiswa.id_tahun = periode.id_tahun
-            INNER JOIN prodi ON mahasiswa.id_prodi = prodi.id_prodi
-            INNER JOIN fakultas ON prodi.id_fakultas = fakultas.id_fakultas
-            INNER JOIN dosen ON {$this->table}.id_dosen = dosen.nidn";
 
-        $conditions = ["periode.status = 'Aktif'", "{$this->table}.status IN ('Requested','Accepted','Rejected')"];
-        if (!empty($fakultas)) {
-            $conditions[] = "fakultas.id_fakultas = :fakultas";
-        }
-        if (!empty($prodi)) {
-            $conditions[] = "prodi.id_prodi = :prodi";
-        }
-
-        if (count($conditions) > 0) {
-            $query .= " WHERE " . implode(' AND ', $conditions);
-        }
-
-        $this->pdo->query($query);
-        if (!empty($fakultas)) $this->pdo->bind(':fakultas', $fakultas);
-        if (!empty($prodi)) $this->pdo->bind(':prodi', $prodi);
-
-        return $this->pdo->resultSet();
-    }
 
     public function getDokumenKaprodi(){
      $prodi = $_SESSION['id_prodi'];
@@ -206,7 +173,23 @@ class DokumenModel {
 
     public function getDokumenUnpublished(){
         $pembimbing = $_SESSION['nidn'];
-        $this->pdo->query("SELECT {$this->table}.*, mahasiswa.nama as mahasiswa_nama, mahasiswa.nim, dosen.nama as dosen_nama, dosen.nidn FROM {$this->table} INNER JOIN mahasiswa ON {$this->table}.id_mahasiswa = mahasiswa.nim INNER JOIN dosen ON {$this->table}.id_dosen = dosen.nidn INNER JOIN periode ON mahasiswa.id_tahun = periode.id_tahun WHERE {$this->table}.id_dosen = $pembimbing AND periode.status = 'Aktif' AND {$this->table}.status_publish = 'Unpublished' OR {$this->table}.status_publish = 'Published'");
+        $query = "SELECT 
+                    d.*, 
+                    p.status, p.catatan,
+                    m.nama as mahasiswa_nama, 
+                    m.nim, 
+                    dsn.nama as dosen_nama, 
+                    dsn.nidn 
+                  FROM {$this->table} d
+                  LEFT JOIN pengajuan p ON d.id_dokumen = p.id_dokumen
+                  INNER JOIN mahasiswa m ON d.id_mahasiswa = m.nim
+                  INNER JOIN dosen dsn ON d.id_dosen = dsn.nidn
+                  INNER JOIN periode per ON m.id_tahun = per.id_tahun
+                  WHERE d.id_dosen = :pembimbing 
+                  AND per.status = 'Aktif' 
+                  AND d.status_publish IN ('Unpublished', 'Published')";
+        $this->pdo->query($query);
+        $this->pdo->bind(':pembimbing', $pembimbing);
         return $this->pdo->resultSet();
     }
 }

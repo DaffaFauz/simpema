@@ -14,8 +14,15 @@ class PeriodeModel{
         return $this->pdo->resultSet();
     }
 
+    public function getAktif(){
+        $sql = "SELECT * FROM {$this->table} WHERE status = 'Aktif' LIMIT 1";
+        $this->pdo->query($sql);
+        return $this->pdo->single();
+    }
+
     public function add($data){
-        $this->pdo->query("INSERT INTO {$this->table} (periode, status) VALUES (:periode, 'Aktif')");
+        $this->pdo->query("INSERT INTO {$this->table} (tahun, periode, status) VALUES (:tahun, :periode, 'Aktif')");
+        $this->pdo->bind('tahun', $data['tahun']);
         $this->pdo->bind('periode', $data['periode']);
         $this->pdo->execute();
         return $this->pdo->rowCount();

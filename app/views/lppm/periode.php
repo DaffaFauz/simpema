@@ -23,6 +23,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Tahun</th>
                                             <th>Periode</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -34,6 +35,7 @@
                                         foreach($data['periode'] as $periode): ?>
                                         <tr>
                                             <td><?= htmlspecialchars((string)$no++) ?></td>
+                                            <td><?= htmlspecialchars($periode['tahun'] ?? '-') ?></td>
                                             <td><?= htmlspecialchars($periode['periode'] ?? '-') ?></td>
                                             <td><span class=" badge badge-<?=($periode['status'] === 'Aktif') ? 'success': 'danger'?>"><?= htmlspecialchars($periode['status'] ?? '-') ?></span></td>
                                             <td>
@@ -62,8 +64,15 @@
                                 <div class="modal-body">
                                     <form action="<?=BASE_URL?>/Periode/addPeriode" method="post">
                                         <div class="form-group">
+                                            <label for="tahun">Tahun</label>
+                                            <input type="text" class="form-control" id="tahun" name="tahun" value="<?= date('Y').'/'.date('Y')+1 ?>">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="periode">Periode</label>
-                                            <input type="text" class="form-control" id="periode" name="periode" value="<?= date('Y').'/'.date('Y')+1 ?>">
+                                            <select name="periode" id="periode" class="form-control">
+                                                <option value="Ganjil">Ganjil</option>
+                                                <option value="Ganjil">Genap</option>
+                                            </select>
                                         </div>
                                 </div>
                                 <div class="modal-footer">

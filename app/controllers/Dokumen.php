@@ -95,11 +95,11 @@ class Dokumen extends Controller{
             if(empty($token)){
                 // kembalikan ke referer jika ada, atau default ke Dokumen
                 if(!empty($_SERVER['HTTP_REFERER'])) return $_SERVER['HTTP_REFERER'];
-                return BASE_URL . '/Dokumen';
+                return BASE_URL . '/Pengajuan';
             }
             $token = trim($token, " /\\");
             // mapping sederhana untuk token yang dikenal
-            if(strtolower($token) === 'pengajuan') return BASE_URL . '/Dokumen/pengajuan';
+            if(strtolower($token) === 'pengajuan') return BASE_URL . '/Pengajuan';
             if(strtolower($token) === 'dashboard') return BASE_URL . '/Dashboard';
             // jika token mengandung slash (Controller/method), lampirkan ke BASE_URL
             if(strpos($token, '/') !== false){
@@ -123,23 +123,6 @@ class Dokumen extends Controller{
         }else{
             redirectWithMsg($redirect_url, 'Status Publish gagal diubah', 'danger');
         }
-    }
-
-    public function pengajuan(){
-
-        // Mengambil dokumen yang di ajukan dosen pembimbing
-        $dokumen = $this->model("DokumenModel")->getReqDoc();
-
-        // Menganmbil data fakultas untuk filter
-        $fakultas = $this->model("FakultasModel")->getAll();
-
-        // View
-        $this->view('layout/head', ['pageTitle' => 'Pengajuan']);
-        $this->view('layout/sidebar',    ['user' => $_SESSION['role']]);
-        $this->view('layout/headbar', ['nama' => $_SESSION['nama']]);
-        $this->view('lppm/dokumen_pengajuan', ['dokumen' => $dokumen,'fakultasfilter' => $fakultas]);
-        $this->view('layout/footer');
-        $this->view('layout/script');
     }
 
     public function status(){
@@ -189,7 +172,7 @@ class Dokumen extends Controller{
 
         if($isAjax){
             if($redirect_page === 'pengajuan'){
-                $dokumen = $this->model('DokumenModel')->getFilteredRequests($fakultas_selected, $prodi_selected);
+                $dokumen = $this->model('PengajuanModel')->getFilteredRequests($fakultas_selected, $prodi_selected);
             } else {
                 $dokumen = $this->model('DokumenModel')->getFiltered($fakultas_selected, $prodi_selected, $status_selected);
             }
@@ -201,7 +184,7 @@ class Dokumen extends Controller{
         // Jika bukan AJAX, render halaman normal dengan hasil filter atau semua
         if($redirect_page === 'pengajuan'){
             if(!empty($fakultas_selected) || !empty($prodi_selected)){
-                $dokumen = $this->model('DokumenModel')->getFilteredRequests($fakultas_selected, $prodi_selected);
+                $dokumen = $this->model('PengajuanModel')->getFilteredRequests($fakultas_selected, $prodi_selected);
             }else{
                 $dokumen = $this->model('DokumenModel')->getReqDoc();
             }
@@ -231,10 +214,6 @@ class Dokumen extends Controller{
         $this->view('lppm/dokumen_mahasiswa', ['dokumen' => $dokumen, 'prodifilter' => $prodifilter, 'fakultasfilter' => $fakultas, 'selectedprodi' => $prodi_selected, 'selectedstatus' => $status_selected, 'selectedfakultas' => $fakultas_selected]);
         $this->view('layout/footer');
         $this->view('layout/script');
-
-    }
-
-    public function ajuanfilter(){
 
     }
 
