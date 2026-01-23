@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL', 'http://localhost/simpenma/public');
+define('BASE_URL', 'http://localhost/simpema/public');
 define('ASSETS_URL', BASE_URL . '/assets/');
 define('FUNCTIONS_URL', BASE_URL . '/app/config/functions.php');
 
@@ -9,4 +9,4 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
-define('DB_NAME', 'repository');
+define('DB_NAME', 'simpema');

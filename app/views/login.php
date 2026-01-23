@@ -12,13 +12,13 @@
     <title>SIMPEMA - Login</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?=ASSETS_URL?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= ASSETS_URL ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<?=ASSETS_URL?>css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= ASSETS_URL ?>css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -38,29 +38,35 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">SIMPEMA</h1>
                                     </div>
-                                     <?php if (isset($_SESSION['msg'])):?>
-                                            <div class="alert alert-<?= $_SESSION['msg_type'] ?> alert-dismissible fade show" role="alert">
-                                                <?= $_SESSION['msg'] ?>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
+                                    <?php if (isset($_SESSION['msg'])): ?>
+                                        <div class="alert alert-<?= $_SESSION['msg_type'] ?> alert-dismissible fade show"
+                                            role="alert">
+                                            <?= $_SESSION['msg'] ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
                                         <?php unset($_SESSION['msg']);
                                     endif; ?>
-                                    <form class="user" action="<?= BASE_URL?>/Auth/" method="POST">
+                                    <form class="user" action="<?= BASE_URL ?>/Auth/" method="POST">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp" name="email"
                                                 placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user"
+                                                name="password" id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
                                     </form>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="<?= BASE_URL ?>" class="btn btn-user">
+                                            Kembali ke Beranda
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -74,14 +80,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?=ASSETS_URL;?>vendor/jquery/jquery.min.js"></script>
-    <script src="<?=ASSETS_URL;?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= ASSETS_URL; ?>vendor/jquery/jquery.min.js"></script>
+    <script src="<?= ASSETS_URL; ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?=ASSETS_URL;?>vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= ASSETS_URL; ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?=ASSETS_URL;?>js/sb-admin-2.min.js"></script>
+    <script src="<?= ASSETS_URL; ?>js/sb-admin-2.min.js"></script>
 
 </body>
 
