@@ -54,9 +54,11 @@
                                                 id="exampleInputEmail" aria-describedby="emailHelp" name="email"
                                                 placeholder="Enter Username...">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group position-relative">
                                             <input type="password" class="form-control form-control-user"
                                                 name="password" id="exampleInputPassword" placeholder="Password">
+                                            <i class="fas fa-eye position-absolute" id="togglePassword"
+                                                style="right: 25px; top: 50%; transform: translateY(-50%); cursor: pointer; z-index: 10;"></i>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
@@ -88,6 +90,22 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= ASSETS_URL; ?>js/sb-admin-2.min.js"></script>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#exampleInputPassword');
+
+        if (togglePassword && password) {
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+    </script>
 
 </body>
 
